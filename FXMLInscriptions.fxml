@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="AnchorPane" prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: transparent;" styleClass="BackAccueil" stylesheets="@../StyleCSS.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dgsescuela.Inscriptions.FXMLInscriptionsController">
+     <children>
+      <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <MenuBar prefHeight="0.0" prefWidth="1200.0">
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Close" />
+                        <MenuItem mnemonicParsing="false" text="Modifier les Informations Personnel" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Parametres">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Sauvgarder tous les donnees" />
+                        <MenuItem mnemonicParsing="false" text="Importer Condidat From Excel" />
+                        <MenuItem mnemonicParsing="false" text="Importer Abonnement From Excel" />
+                        <MenuItem mnemonicParsing="false" text="Importer Programme From Excel" />
+                        <MenuItem mnemonicParsing="false" text="Importer Jour From Excel" />
+                        <MenuItem mnemonicParsing="false" text="Importer Exercice From Excel" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="About" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+            <HBox alignment="TOP_CENTER" prefHeight="116.0" prefWidth="1180.0" spacing="20.0">
+               <children>
+                  <JFXButton focusTraversable="false" onMouseClicked="#FenetreAccueil" prefHeight="105.0" prefWidth="130.0" ripplerFill="#424dee" style="-fx-border-radius: 0; -fx-background-radius: 20; -fx-background-color: transparent;" styleClass="buttonAccueil" stylesheets="@../StyleButtonAccueil.css" text=" " textFill="#ffffff00">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <effect>
+                        <Shadow height="207.56" radius="95.92750000000001" width="178.15" />
+                     </effect>
+                  </JFXButton>
+                  <JFXButton focusTraversable="false" onMouseClicked="#FenetreEnseignant" prefHeight="105.0" prefWidth="130.0" ripplerFill="#424dee" style="-fx-border-radius: 0; -fx-background-radius: 20; -fx-background-color: transparent;" styleClass="buttonListCondidats" stylesheets="@../StyleButtonAccueil.css" text=" " textFill="#ffffff00">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <effect>
+                        <Shadow height="207.56" radius="95.92750000000001" width="178.15" />
+                     </effect>
+                  </JFXButton>
+                  <JFXButton focusTraversable="false" onMouseClicked="#FenetreEtudiant" prefHeight="105.0" prefWidth="130.0" ripplerFill="#424dee" style="-fx-border-radius: 0; -fx-background-radius: 20; -fx-background-color: transparent;" styleClass="buttonEtudiant" stylesheets="@../StyleButtonAccueil.css" text=" " textFill="#ffffff00">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <effect>
+                        <Shadow height="207.56" radius="95.92750000000001" width="178.15" />
+                     </effect>
+                  </JFXButton>
+                  <JFXButton focusTraversable="false" onMouseClicked="#FenetreFormation" prefHeight="105.0" prefWidth="130.0" ripplerFill="#424dee" style="-fx-border-radius: 0; -fx-background-radius: 20;" styleClass="buttonExpires" stylesheets="@../StyleButtonAccueil.css" text=" " textFill="#ffffff00">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <effect>
+                        <Shadow height="207.56" radius="95.92750000000001" width="178.15" />
+                     </effect>
+                  </JFXButton>
+                  <JFXButton focusTraversable="false" onMouseClicked="#FenetreInscription" prefHeight="105.0" prefWidth="130.0" ripplerFill="#424dee" style="-fx-border-radius: 0; -fx-background-radius: 20; -fx-background-color: transparent;" styleClass="buttonInscription" stylesheets="@../StyleButtonAccueil.css" text=" " textFill="#ffffff00">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <effect>
+                        <Shadow height="207.56" radius="95.92750000000001" width="178.15" />
+                     </effect>
+                  </JFXButton>
+                  <JFXButton focusTraversable="false" onMouseClicked="#FenetreEmploisDuTemps" prefHeight="105.0" prefWidth="130.0" ripplerFill="#424dee" style="-fx-border-radius: 0; -fx-background-radius: 20;" styleClass="buttonRenouvellement" stylesheets="@../StyleButtonAccueil.css" text=" " textFill="#ffffff00">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <effect>
+                        <Shadow height="207.56" radius="95.92750000000001" width="178.15" />
+                     </effect>
+                  </JFXButton>
+                  <JFXButton focusTraversable="false" onMouseClicked="#FenetreStatistiques" prefHeight="105.0" prefWidth="130.0" ripplerFill="#424dee" style="-fx-border-radius: 0; -fx-background-radius: 20; -fx-background-color: transparent;" styleClass="buttonProgrammes" stylesheets="@../StyleButtonAccueil.css" text=" " textFill="#ffffff00">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <effect>
+                        <Shadow height="207.56" radius="95.92750000000001" width="178.15" />
+                     </effect>
+                  </JFXButton>
+                  <JFXButton focusTraversable="false" onMouseClicked="#FenetreFrais" prefHeight="105.0" prefWidth="130.0" ripplerFill="#424dee" style="-fx-border-radius: 0; -fx-background-radius: 20; -fx-background-color: transparent;" styleClass="buttonFrais" stylesheets="@../StyleButtonAccueil.css" text=" " textFill="#ffffff00">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <effect>
+                        <Shadow height="207.56" radius="95.92750000000001" width="178.15" />
+                     </effect>
+                  </JFXButton>
+               </children>
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+            </HBox>
+            <SplitPane dividerPositions="0.29797979797979796" prefHeight="546.0" prefWidth="1160.0" styleClass="split" stylesheets="@../StyleCSS.css">
+              <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: transparent;">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="535.0" prefWidth="340.0" spacing="35.0">
+                           <children>
+                              <JFXButton onAction="#AjouterInscription" prefHeight="70.0" prefWidth="200.0" stylesheets="@../StyleCSS.css" text="Ajouter une inscription" />
+                              <JFXButton onAction="#ModifierInscription" prefHeight="70.0" prefWidth="200.0" text="Modifier la Selection" />
+                              <JFXButton onAction="#SupprimerInscription" prefHeight="70.0" prefWidth="200.0" text="Supprimer la Selection" />
+                           </children>
+                        </VBox>
+                     </children></AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                     <children>
+                        <VBox alignment="TOP_CENTER" prefHeight="535.0" prefWidth="806.0" spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label prefHeight="44.0" prefWidth="253.0" text="INSCRIPTIONS" textFill="WHITE">
+                                 <font>
+                                    <Font name="Berlin Sans FB" size="40.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Label>
+                              <TextField fx:id="fxRechercher" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" onAction="#Recherche" onMouseClicked="#Recherche" prefHeight="25.0" prefWidth="400.0" promptText="Recherche">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </TextField>
+                              <TableView fx:id="fxTableInscription" editable="true" prefHeight="351.0" prefWidth="786.0">
+                                <columns>
+                                  <TableColumn fx:id="fxIdInscription" prefWidth="75.0" text="IDInscription" />
+                                    <TableColumn fx:id="fxIdFormation" prefWidth="75.0" text="IDFormation" />
+                                    <TableColumn fx:id="fxIdEtudiant" prefWidth="75.0" text="IDEtudiant" />
+                                    <TableColumn fx:id="fxDateI" prefWidth="75.0" text="Date Inscription" />
+                                </columns>
+                                 <VBox.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </VBox.margin>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                              </TableView>
+                              <HBox alignment="TOP_RIGHT" prefHeight="153.0" prefWidth="806.0" spacing="500.0" />
+                           </children>
+                           <padding>
+                              <Insets top="50.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+              </items>
+               <VBox.margin>
+                  <Insets left="20.0" right="20.0" />
+               </VBox.margin>
+            </SplitPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
