@@ -7,6 +7,8 @@ package dgsescuela.Inscriptions;
 
 import com.jfoenix.controls.JFXComboBox;
 import dgsescuela.DBConnection;
+import static dgsescuela.Inscriptions.FXMLAjouterController.EtudStage;
+import static dgsescuela.Inscriptions.FXMLAjouterController.FormStage;
 import static dgsescuela.LoginPackage.loginController.adminStage;
 import static dgsescuela.LoginPackage.loginController.rootAccueil;
 import static dgsescuela.LoginPackage.loginController.sceneAccueil;
@@ -34,6 +36,11 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import static dgsescuela.Inscriptions.FXMLInscriptionsController.StageIns;
+import static dgsescuela.LoginPackage.loginController.rootAccueil;
+import static dgsescuela.LoginPackage.loginController.sceneAccueil;
+import dgsescuela.Modele.ModeleEtudiantsStatic;
+import dgsescuela.Modele.ModeleFormationsStatic;
+import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
@@ -49,9 +56,14 @@ Connection conn;
     @FXML
     private Label isEmpty;
     @FXML
-    private JFXComboBox<String> cmb1;
-    @FXML
-    private JFXComboBox<String> cmb2;
+    private TextField   idetud;
+  @FXML
+    private TextField   idform;
+  @FXML
+    private TextField   Nometud;
+  @FXML
+    private TextField   Titreform;
+
     @FXML
     private DatePicker DateI;
      Methodes mtd= new Methodes();
@@ -60,6 +72,10 @@ Connection conn;
     /**
      * Initializes the controller class.
      */
+       String v=null;
+       String v2=null;
+      ModeleFormationsStatic CurrentObjetStatic;
+      ModeleEtudiantsStatic CurrentObjetStatic2;
     ModeleInscriptionsStatic mIns = new ModeleInscriptionsStatic();
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -68,8 +84,32 @@ Connection conn;
             // TODO
             conn= DBConnection.EtablirConnection();
             DateI.setValue(LocalDate.now());
-            mtd.MethodeIdFormation(cmb1);
-            mtd2.MethodeIdEtudiant(cmb2);
+            CurrentObjetStatic=new ModeleFormationsStatic();
+            CurrentObjetStatic2=new ModeleEtudiantsStatic();
+             try{
+                
+            
+       String s= "Select TitreFormation from formation where IDFormation ='"+mIns.getIdFormat()+"'";
+        pst = conn.prepareStatement(s);
+            rs = pst.executeQuery();
+            if(rs.next()){
+                v=rs.getString(1);
+            }
+                System.out.println("vvvvvvv"+v);
+            
+            String s2="Select NomEtud from etudiant where IdEtud ='"+mIns.getIdEtud()+"'";
+            pst = conn.prepareStatement(s2);
+            rs = pst.executeQuery();
+            if(rs.next()){
+                v2=rs.getString(1);
+            }
+                System.out.println("vvvv222vvv   "+v2);
+                 Nometud.setText(v2);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(dgsescuela.Inscriptions.FXMLModifierController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+           
             Init();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(dgsescuela.Etudiants.FXMLModifierController.class.getName()).log(Level.SEVERE, null, ex);
@@ -102,12 +142,18 @@ Connection conn;
                 alert.showAndWait();
                 
         }else{
-        cmb1.setValue(mIns.getIdFormat());
-      //  fxDate.setText(CurrentObjetStatic.getDate());
-         cmb2.setValue(mIns.getIdEtud());
+      
+       idform.setText(mIns.getIdFormat());
+        Titreform.setText(v.toString());
+        Nometud.setText(v2.toString());
+      
+       
+       idetud.setText(mIns.getIdEtud());
+      
       //  DateI.setValue(mIns.getDateIns());
         }
       }
+      
 
     @FXML
     private void ModifierInscription() {
@@ -120,8 +166,8 @@ Connection conn;
                    pst = conn.prepareStatement(sql);
 
                     //pst.setString(1, mIns.getIdInscription().toString());
-                    pst.setString(1, cmb1.getValue().toString());
-                    pst.setString(2, cmb2.getValue().toString());
+                    pst.setString(1, idform.getText());
+                    pst.setString(2, idetud.getText());
                     pst.setString(3, DateI.getValue().toString());
                      
                    
@@ -185,8 +231,8 @@ Connection conn;
     ///////////////    pour verifier les champ vide /////////////////
     private boolean isEmpty() {
         boolean isEmpty = false;
-        if (cmb1.getValue().trim().isEmpty()
-                || cmb2.getValue().trim().isEmpty()
+        if (idform.getText().isEmpty()
+                || idetud.getText().isEmpty()
                
           
                 ) {
@@ -203,7 +249,34 @@ Connection conn;
     }
 
     /////////////////////   verifier si cette condidat est nouveau ou deja inscrit //////////
-   
+    @FXML
+   public void FenetreEtudiant() throws IOException {
+
+      
+        rootAccueil = FXMLLoader.load(getClass().getResource("/dgsescuela/Inscriptions/FXMLEtudiants.fxml"));
+        sceneAccueil = new Scene(rootAccueil);
+
+            EtudStage.setScene(sceneAccueil);
+            EtudStage.showAndWait();
+          
+            idetud.setText(CurrentObjetStatic2.getIdEtudiant());
+            Nometud.setText(CurrentObjetStatic2.getNomEtudiant());
+
+    }
+   @FXML
+   public void FenetreFormation() throws IOException {
+
+      
+        rootAccueil = FXMLLoader.load(getClass().getResource("/dgsescuela/Inscriptions/FXMLFormations.fxml"));
+        sceneAccueil = new Scene(rootAccueil);
+
+            FormStage.setScene(sceneAccueil);
+            FormStage.showAndWait();
+          
+            idform.setText(CurrentObjetStatic.getIdFormation());
+            Titreform.setText(CurrentObjetStatic.getTitreFormation());
+
+    }
     
           public void FenetreInscription() throws ParseException, IOException {
 

@@ -144,7 +144,7 @@
                                     <Insets />
                                  </VBox.margin>
                               </Label>
-                              <TextField fx:id="fxRechercher" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" onAction="#Recherche" onMouseClicked="#Recherche" prefHeight="25.0" prefWidth="400.0" promptText="Recherche">
+                              <TextField fx:id="fxRechercher" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" onKeyReleased="#Recherche" prefHeight="25.0" prefWidth="400.0" promptText="Recherche">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -153,7 +153,9 @@
                                 <columns>
                                   <TableColumn fx:id="fxIdInscription" prefWidth="75.0" text="IDInscription" />
                                     <TableColumn fx:id="fxIdFormation" prefWidth="75.0" text="IDFormation" />
+                                    <TableColumn fx:id="TitreF" prefWidth="75.0" text="Titre Formation" />
                                     <TableColumn fx:id="fxIdEtudiant" prefWidth="75.0" text="IDEtudiant" />
+                                    <TableColumn fx:id="NomE" prefWidth="75.0" text="Nom Etudiant" />
                                     <TableColumn fx:id="fxDateI" prefWidth="75.0" text="Date Inscription" />
                                 </columns>
                                  <VBox.margin>

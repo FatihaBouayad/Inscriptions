@@ -13,7 +13,10 @@ import dgsescuela.Formations.*;
 import static dgsescuela.LoginPackage.loginController.adminStage;
 import static dgsescuela.LoginPackage.loginController.rootAccueil;
 import static dgsescuela.LoginPackage.loginController.sceneAccueil;
+import dgsescuela.Modele.ModeleEnseignantsStatic;
+import dgsescuela.Modele.ModeleEtudiantsStatic;
 import dgsescuela.Modele.ModeleFormations;
+import dgsescuela.Modele.ModeleFormationsStatic;
 import dgsescuela.Modele.ModeleInscriptions;
 import dgsescuela.Modele.ModeleInscriptionsStatic;
 import java.io.IOException;
@@ -38,6 +41,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -61,19 +65,26 @@ public class FXMLInscriptionsController implements Initializable {
     private TableColumn<ModeleInscriptions, String>  fxIdEtudiant;
       @FXML
     private TableColumn<ModeleInscriptions, String>  fxDateI;
+      @FXML
+    private TableColumn<ModeleInscriptions, String>  TitreF;
+      @FXML
+    private TableColumn<ModeleInscriptions, String>  NomE;
      @FXML
     private Label isEmpty;
-    private Label fxRechercher;
-
+     @FXML
+    private TextField fxRechercher;
+ModeleEtudiantsStatic CurrentObjetStatic1;
+ModeleFormationsStatic CurrentObjetStatic2;
     /**
      * Initializes the controller class.
      */
+   
     Connection conn;
     PreparedStatement pst = null;
     ResultSet rs = null;
     
     public static Stage StageIns= new Stage();
-   
+  
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -103,25 +114,32 @@ public class FXMLInscriptionsController implements Initializable {
          fxIdFormation.setCellValueFactory(new PropertyValueFactory<>("idFormat"));
         fxIdEtudiant.setCellValueFactory(new PropertyValueFactory<>("idEtud"));
         fxDateI.setCellValueFactory(new PropertyValueFactory<>("DateIns"));
+        TitreF.setCellValueFactory(new PropertyValueFactory<>("TitreF"));
+        NomE.setCellValueFactory(new PropertyValueFactory<>("NomE"));
         }
-     
+
              public void uploadTableInscription(){
            
            try {
+                 
+               
                ListeInscription.clear();
                
               /// String sql = " " ;
                
                fxTableInscription.getItems().clear();
-               pst = conn.prepareStatement("SELECT IDInscription,IDformation,IdEtud,DateInscription FROM `inscription`");
+               pst = conn.prepareStatement("SELECT IDInscription,IDformation,TitreF,IdEtud,NomE,DateInscription FROM `inscription`");
                rs = pst.executeQuery();
                
                while(rs.next()){
-                   ModeleInscriptions newInscription = new ModeleInscriptions();
+                  ModeleInscriptions newInscription = new ModeleInscriptions();
+
                    newInscription.setIdInscription(rs.getString(1));
                    newInscription.setIdFormat(rs.getString(2));
-                   newInscription.setIdEtud(rs.getString(3));
-                   newInscription.setDateIns(rs.getString(4));
+                   newInscription.setTitreF(rs.getString(3));
+                   newInscription.setIdEtud(rs.getString(4));
+                   newInscription.setNomE(rs.getString(5));
+                   newInscription.setDateIns(rs.getString(6));
                    ListeInscription.add(newInscription);
                    System.out.println("*******************Inscription");
                }
@@ -295,7 +313,8 @@ public class FXMLInscriptionsController implements Initializable {
             StageIns.setTitle("Ajouter Inscription");
             StageIns.setScene(newScene);
             StageIns.showAndWait();
-      
+
+
     }
     
     @FXML
@@ -326,14 +345,14 @@ public class FXMLInscriptionsController implements Initializable {
             StageIns.setTitle("Modifier Inscription");
             StageIns.setScene(newScene);
             StageIns.showAndWait();
-        
+    
     }
 
 
  
     
      public void Recherche() throws SQLException{
-
+         System.out.println("----------------    "+fxRechercher.getText());
         
         if(fxRechercher==null || fxRechercher.getText().equals(""))
         {
@@ -341,6 +360,7 @@ public class FXMLInscriptionsController implements Initializable {
             uploadTableInscription();
             
         }else{
+            System.out.println("uuuuuuuuuuuuu");
         ListeInscription.clear();
             RechercheDonnee();
     
@@ -350,7 +370,7 @@ public class FXMLInscriptionsController implements Initializable {
 
 
      public void RechercheDonnee() throws SQLException{       
-          String sql="select IDInscription,IDformation,IdEtud,DateInscription from inscription where IDInscription ='"+fxRechercher.getText().toLowerCase()+"' OR DateInscription= '"+fxRechercher.getText().toLowerCase()+"'";           
+          String sql="select IDInscription,IDformation,TitreF,IdEtud,NomE,DateInscription from inscription where IDInscription ='"+fxRechercher.getText().toLowerCase()+"' OR TitreF= '"+fxRechercher.getText().toLowerCase()+"' OR NomE='"+fxRechercher.getText().toLowerCase()+"'";           
         try {
             
        fxTableInscription.getItems().clear();
@@ -362,8 +382,10 @@ public class FXMLInscriptionsController implements Initializable {
             
             ins.setIdInscription(rs.getString(1));
             ins.setIdFormat(rs.getString(2));
-            ins.setIdEtud(rs.getString(3));
-            ins.setDateIns(rs.getString(4));
+            ins.setTitreF(rs.getString(3));
+            ins.setIdEtud(rs.getString(4));
+            ins.setNomE(rs.getString(5));
+            ins.setDateIns(rs.getString(6));
             
             ListeInscription.add(ins);
             fxTableInscription.setItems(ListeInscription);

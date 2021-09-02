@@ -9,9 +9,14 @@ import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import dgsescuela.DBConnection;
+//import static dgsescuela.Inscriptions.FXMLFormationsController.StageFor;
+/*import static dgsescuela.Inscriptions.FXMLInscriptionsController.EtudStage;
+import static dgsescuela.Inscriptions.FXMLInscriptionsController.FormStage;*/
 import static dgsescuela.LoginPackage.loginController.newStage;
 import static dgsescuela.LoginPackage.loginController.rootAccueil;
 import static dgsescuela.LoginPackage.loginController.sceneAccueil;
+import dgsescuela.Modele.ModeleEtudiantsStatic;
+import dgsescuela.Modele.ModeleFormationsStatic;
 import dgsescuela.Modele.ModeleInscriptions;
 import dgsescuela.Modele.ModeleInscriptionsStatic;
 import java.io.IOException;
@@ -32,8 +37,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
 
 /**
  *
@@ -44,19 +51,26 @@ public class FXMLAjouterController implements Initializable  {
     PreparedStatement pst = null;
     ResultSet rs = null;
     ModeleInscriptionsStatic inscr= new ModeleInscriptionsStatic();
-    @FXML
-    private JFXComboBox <String> cmb1;
-  @FXML
-    private JFXComboBox <String> cmb2;
+   
     @FXML
     private DatePicker DateI;
+  @FXML
+    private TextField   idetud;
+  @FXML
+    private TextField   idform;
+  @FXML
+    private TextField   Nometud;
+  @FXML
+    private TextField   Titreform;
   
       @FXML
     private Label isEmpty;
+       public static Stage EtudStage= new Stage();
+    public static Stage FormStage= new Stage();
       
-       
-      Methodes mtd= new Methodes();
-      Methodes mtd2= new Methodes();
+       ModeleEtudiantsStatic CurrentObjetStatic;
+       ModeleFormationsStatic CurrentObjetStatic2;
+     
       /**
      * Initializes the controller class.
      */
@@ -67,12 +81,12 @@ public class FXMLAjouterController implements Initializable  {
         
         try {
             // TODO
-               mtd.MethodeIdFormation(cmb1);
-            mtd2.MethodeIdEtudiant(cmb2);
+             
             conn= DBConnection.EtablirConnection();
             DateI.setValue(LocalDate.now());
             System.out.println("999999999999999999999999999999999");
-         
+         CurrentObjetStatic =new ModeleEtudiantsStatic();
+         CurrentObjetStatic2 =new ModeleFormationsStatic();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(dgsescuela.Inscriptions.FXMLAjouterController.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("00000000000000000000000");
@@ -88,14 +102,16 @@ public class FXMLAjouterController implements Initializable  {
             if (isValidCondition()) {
                if(isnewData()){
                     
-                    String sql = "insert into inscription(IDformation,IdEtud,DateInscription) values(?,?,?)";
+                    String sql = "insert into inscription(IDformation,TitreF,IdEtud,NomE,DateInscription) values(?,?,?,?,?)";
                     pst = conn.prepareStatement(sql);
                     
 
                    
-                    pst.setString(1, cmb1.getValue().toString());
-                    pst.setString(2, cmb2.getValue().toString());
-                    pst.setString(3, DateI.getValue().toString());
+                    pst.setString(1, idform.getText());
+                    pst.setString(2, Titreform.getText());
+                    pst.setString(3, idetud.getText());
+                    pst.setString(4, Nometud.getText());
+                    pst.setString(5, DateI.getValue().toString());
                  
                     pst.executeUpdate();
                     pst.close();
@@ -170,8 +186,8 @@ public class FXMLAjouterController implements Initializable  {
 ///////////////    pour verifier les champ vide /////////////////
     private boolean isEmpty() {
         boolean isEmpty = false;
-        if (cmb1.getValue().trim().isEmpty()
-                || cmb2.getValue().trim().isEmpty()
+        if (idform.getText().isEmpty()
+                || idetud.getText().isEmpty()
                 || DateI.getValue().toString().trim().isEmpty()
                )
                   {
@@ -207,7 +223,35 @@ public class FXMLAjouterController implements Initializable  {
     }
     public void SelectImage (){
         
-    }   
+    }  
+    @FXML
+   public void FenetreEtudiant() throws IOException {
+
+      
+        rootAccueil = FXMLLoader.load(getClass().getResource("/dgsescuela/Inscriptions/FXMLEtudiants.fxml"));
+        sceneAccueil = new Scene(rootAccueil);
+
+            EtudStage.setScene(sceneAccueil);
+            EtudStage.showAndWait();
+          
+            idetud.setText(CurrentObjetStatic.getIdEtudiant());
+            Nometud.setText(CurrentObjetStatic.getNomEtudiant());
+
+    }
+   @FXML
+   public void FenetreFormation() throws IOException {
+
+      
+        rootAccueil = FXMLLoader.load(getClass().getResource("/dgsescuela/Inscriptions/FXMLFormations.fxml"));
+        sceneAccueil = new Scene(rootAccueil);
+
+            FormStage.setScene(sceneAccueil);
+            FormStage.showAndWait();
+          
+            idform.setText(CurrentObjetStatic2.getIdFormation());
+            Titreform.setText(CurrentObjetStatic2.getTitreFormation());
+
+    }
    public void FenetreInscription() throws ParseException, IOException {
 
             rootAccueil = FXMLLoader.load(getClass().getResource("/dgsescuela/Inscriptions/FXMLInscriptions.fxml"));
